@@ -141,23 +141,58 @@ void PostOrder (Isi_Tree P) {
 }
 
 void Level_order(Isi_Tree X, int Maks_node) {
+        if (IsEmpty(X)) return;
+    
+        int queue[jml_maks];
+        int head = 0, tail = 0;
+    
+        queue[tail++] = 0; // Mulai dari root (indeks 0)
+    
+        while (head < tail) {
+            int current = queue[head++];
+            printf("%c ", X[current].info);
+    
+            int child = X[current].FirstSon;
+            while (child != nil) {
+                queue[tail++] = child;
+                child = X[child].NextBrother;
+            }
+        }
+    } // Penggambarannya seperti saat mengambi A, cetak dan ambil B dan C kemudian saat mengambil B maka ambil maka first son pertamanya adalah D dan selanjutnya nb dari D adlaah E dan first sonnya adalah E dan kemudian nbnya adalah J begitu terus pada interasi yang terjadi pada J. Sebenarnya konsep seperti ini sudah di pahami secara basicnya cuman aku hanya memastikan saja.
+    
 
-}
+    void PrintTree(Isi_Tree P) {
+        //Masih kurang paham masalah 
+    }
+    
 
-void PrintTree (Isi_Tree P) {
-
-}
-
-boolean Search (Isi_Tree P, infotype X) {
-
-}
+    boolean Search(Isi_Tree P, infotype X) {
+        for (int i = 0; i < jml_maks; i++) {
+            if (P[i].info != '\0' && P[i].info == X) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
 
 int nbElmt (Isi_Tree P) {
 
 }
 
 int nbDaun (Isi_Tree P) {
-
+        int count = 0;
+    
+        for (int index = 0; index < jml_maks; index++) {
+            if (P[index].info != '\0') {
+                if (P[index].FirstSon == nil) {      // Tidak punya anak
+                    count++;
+                }
+            }
+        }
+    
+        return count;
+    
 }
 
 int Level (Isi_Tree P, infotype X) {
