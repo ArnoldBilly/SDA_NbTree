@@ -162,27 +162,38 @@ void Level_order(Isi_Tree X, int Maks_node) {
     
 
     void PrintTree(Isi_Tree P) {
-        //Masih kurang paham masalah 
+        int i;
+        for (i = 0; i < 10; i++) {
+            if (P[i].info != '\0') {
+                printf("Node %d: %c (parent: %d)\n", i, P[i].info, P[i].Parents);
+            }
+        }
     }
     
 
     boolean Search(Isi_Tree P, infotype X) {
         for (int i = 0; i < jml_maks; i++) {
             if (P[i].info != '\0' && P[i].info == X) {
+                printf("ada");
                 return true;
             }
         }
+        printf("tidak ada");
         return false;
     }
     
 
 int nbElmt (Isi_Tree P) {
-
+    int count = 0;
+    int i;
+    for (i = 0; i < 10; i++) {
+        if (P[i].info != '\0') count++;
+    }
+    return count;
 }
 
 int nbDaun (Isi_Tree P) {
         int count = 0;
-    
         for (int index = 0; index < jml_maks; index++) {
             if (P[index].info != '\0') {
                 if (P[index].FirstSon == nil) {      // Tidak punya anak
@@ -200,7 +211,23 @@ int Level (Isi_Tree P, infotype X) {
 }
 
 int Depth (Isi_Tree P) {
+    int maxDepth = 0;
+	int i;
+    for (i = 0; i < 10; i++) {
+        if (P[i].info != '\0') {
+            int depth = 0;
+            address curr = i;
+            while (P[curr].Parents != nil) {
+                curr = P[curr].Parents;
+                depth++;
+            }
+            if (depth > maxDepth) {
+                maxDepth = depth;
+            }
+        }
+    }
 
+    return maxDepth;
 }
 
 int Max (infotype Data1, infotype Data2) {
