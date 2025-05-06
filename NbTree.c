@@ -86,58 +86,51 @@ void PreOrder (Isi_Tree P) {
 }
 
 void InOrder (Isi_Tree P) {
-    static int index = 0;
-    if (P[index].info == '\0') return;
-
-    int current = index;
-
-    if (P[current].FirstSon != nil) {
-        index = P[current].FirstSon;
-        PostOrder(P);
+    int current = 1;
+    boolean resmi = true;
+    while(current != nil){
+        while(P[current].FirstSon != nil && resmi){
+            current = P[current].FirstSon;
+        }
+        if(resmi){
+            printf("%c ", P[current].info);
+        }
+        if(P[P[current].Parents].FirstSon == current){
+            printf("%c ", P[P[current].Parents].info);
+        }
+        if(P[current].NextBrother != nil){
+            current = P[current].NextBrother;
+            resmi = true;
+        }else {
+            current = P[current].Parents;
+            resmi = false;
+        }
     }
-
-    if (P[current].NextBrother != nil) {
-        index = P[current].NextBrother;
-        PostOrder(P);
-    }
-
-    printf("%c ", P[current].info);
-
-    if (current == 0) index = 0;
 }
 
 void PostOrder (Isi_Tree P) {
-    static int index = 0;
-    if (P[index].info == '\0') return;
-
-    int current = index;
-
-    // Kunjungi anak pertama (jika ada)
-    if (P[current].FirstSon != nil) {
-        index = P[current].FirstSon;
-        InOrder(P);
-    }
-
-    // Visit node sekarang
-    printf("%c ", P[current].info);
-
-    // Kunjungi saudara dari anak pertama (jika ada)
-    if (P[current].FirstSon != nil) {
-        int sibling = P[P[current].FirstSon].NextBrother;
-        while (sibling != nil) {
-            index = sibling;
-            InOrder(P);
-            sibling = P[sibling].NextBrother;
+    int current = 1; // berada di root
+    boolean resmi = true;
+    if(P[current].FirstSon != nil){
+        current = P[current].FirstSon; // turun 1 level ke first son
+        while(P[current].Parents != nil){
+            while(P[current].FirstSon != nil && resmi){ // turun ke first son
+                current = P[current].FirstSon;   
+            }
+            if(P[current].FirstSon == nil && resmi){
+                printf("%c ", P[current].info);
+            }
+            if(P[current].NextBrother != nil){
+                current = P[current].NextBrother;
+                resmi = true;
+            }else {
+                current = P[current].Parents;
+                printf("%c ", P[current].info);
+                resmi = false;
+            }
         }
+        printf("\n");
     }
-
-    // Kunjungi saudara dari current
-    if (P[current].NextBrother != nil) {
-        index = P[current].NextBrother;
-        InOrder(P);
-    }
-
-    if (current == 0) index = 0;
 }
 
 void Level_order(Isi_Tree X, int Maks_node) {
@@ -207,7 +200,25 @@ int nbDaun (Isi_Tree P) {
 }
 
 int Level (Isi_Tree P, infotype X) {
+    int index = -1;
+    for (int i = 0; i < jml_maks; i++) {
+        if (P[i].info != '\0' && P[i].info == X) {
+            index = i;
+            break;
+        }
+    }
 
+    if (index == -1) {
+        return -1; // Node tidak ditemukan
+    }
+
+    int level = 0;
+    while (P[index].Parents != nil) {
+        index = P[index].Parents;
+        level++;
+    }
+
+    return level;
 }
 
 int Depth (Isi_Tree P) {
@@ -231,5 +242,5 @@ int Depth (Isi_Tree P) {
 }
 
 int Max (infotype Data1, infotype Data2) {
-
+    return (Data1 > Data2) ? Data1 : Data2;
 }
