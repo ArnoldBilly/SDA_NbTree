@@ -58,7 +58,7 @@ void PrintTree (Isi_Tree P);
 /* FS : Semua simpul P sudah ditulis ke layar */
 /***** Search *****/
 boolean Search (Isi_Tree P, infotype X);
-/* Mengirimkan true jika ada node dari P yang bernilai X *
+/* Mengirimkan true jika ada node dari P yang bernilai X */
 /***** Fungsi Lain *****/
 int nbElmt (Isi_Tree P);
 /* Mengirimkan banyak elemen (node) di pohon non biner P */

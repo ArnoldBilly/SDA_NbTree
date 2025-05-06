@@ -1,4 +1,6 @@
-#include "NbTree.c"
+#include <stdio.h>
+#include <stdlib.h>
+#include "NbTree.h"
 
 // int main() {
 //     Isi_Tree tree;
