@@ -109,12 +109,12 @@ void InOrder (Isi_Tree P) {
 }
 
 void PostOrder (Isi_Tree P) {
-    int current = 1; // berada di root
+    int current = 1;
     boolean resmi = true;
     if(P[current].FirstSon != nil){
-        current = P[current].FirstSon; // turun 1 level ke first son
+        current = P[current].FirstSon;
         while(P[current].Parents != nil){
-            while(P[current].FirstSon != nil && resmi){ // turun ke first son
+            while(P[current].FirstSon != nil && resmi){
                 current = P[current].FirstSon;   
             }
             if(P[current].FirstSon == nil && resmi){
@@ -156,9 +156,16 @@ void Level_order(Isi_Tree X, int Maks_node) {
 
     void PrintTree(Isi_Tree P) {
         int i;
+        printf("Seluruh node pada binary tree: \n");
         for (i = 0; i < 10; i++) {
             if (P[i].info != '\0') {
-                printf("Node %d: %c (parent: %d)\n", i, P[i].info, P[i].Parents);
+                printf("\n--> indeks ke-%d\n", i);
+                printf("------------------------------------\n");
+                printf("Info array ke-%d            : %c\n", i, P[i].info);
+                printf("First son array ke-%d       : %d\n", i, P[i].FirstSon);
+                printf("Next brother array ke-%d    : %d\n", i, P[i].NextBrother);
+                printf("Parent array ke-%d          : %d\n", i, P[i].Parents);
+                printf("------------------------------------\n");
             }
         }
     }
@@ -167,11 +174,9 @@ void Level_order(Isi_Tree X, int Maks_node) {
     boolean Search(Isi_Tree P, infotype X) {
         for (int i = 0; i < jml_maks; i++) {
             if (P[i].info != '\0' && P[i].info == X) {
-                printf("ada");
                 return true;
             }
         }
-        printf("tidak ada");
         return false;
     }
     
